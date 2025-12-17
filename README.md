@@ -59,6 +59,7 @@ The project is organized by architecture. Each notebook is self-contained.
 │   ├── 03_ClofNet.ipynb
 │   └── 04_GraphTransformer.ipynb
 └── README.md
+```
 
 
 ## ⚙️ Installation & Dependencies
