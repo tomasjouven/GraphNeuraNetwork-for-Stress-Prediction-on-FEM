@@ -1,10 +1,8 @@
-
-
 # Surrogate Stress Prediction in 3D Finite Element Meshes Using Graph Neural Networks
 
-[cite_start]This project explores the application of **Geometric Deep Learning** as a surrogate model for Finite Element Analysis (FEA)[cite: 3, 5, 8]. [cite_start]The objective is to predict the **Von Mises stress distribution** on complex 3D mechanical meshes, significantly accelerating the simulation process while maintaining high accuracy[cite: 24, 130].
+This project explores the application of **Geometric Deep Learning** as a surrogate model for Finite Element Analysis (FEA). The objective is to predict the **Von Mises stress distribution** on complex 3D mechanical meshes, significantly accelerating the simulation process while maintaining high accuracy.
 
-[cite_start]We implement and benchmark **four distinct Graph Neural Network (GNN) architectures**, ranging from multi-scale encoders to equivariant and attention-based models[cite: 8, 9]. Each architecture is implemented in a dedicated Jupyter Notebook to facilitate reproducibility and comparative analysis.
+We implement and benchmark **four distinct Graph Neural Network (GNN) architectures**, ranging from multi-scale encoders to equivariant and attention-based models. Each architecture is implemented in a dedicated Jupyter Notebook to facilitate reproducibility and comparative analysis.
 
 ---
 
@@ -13,36 +11,36 @@
 This repository contains the implementation of the following state-of-the-art architectures:
 
 ### 1. Graph U-Net
-* [cite_start]**Type:** Multi-scale Encoder-Decoder[cite: 35].
-* **Mechanism:** Adapts the classic U-Net architecture to graph data. [cite_start]It utilizes graph pooling (`gPool`) and unpooling (`gUnpool`) operations to create a bottleneck, capturing both local high-resolution features and global context through hierarchical representations[cite: 35, 36].
+* **Type:** Multi-scale Encoder-Decoder.
+* **Mechanism:** Adapts the classic U-Net architecture to graph data. It utilizes graph pooling (`gPool`) and unpooling (`gUnpool`) operations to create a bottleneck, capturing both local high-resolution features and global context through hierarchical representations.
 
 ### 2. EGNN (E(n) Equivariant Graph Neural Network)
-* [cite_start]**Type:** Equivariant GNN[cite: 71].
-* **Mechanism:** Explicitly models the network to be equivariant to rotations, translations, and reflections ($E(n)$ symmetry). [cite_start]This ensures that the stress prediction respects the physical geometric laws of the 3D objects regardless of their orientation in space, without requiring data augmentation[cite: 72, 191].
+* **Type:** Equivariant GNN.
+* **Mechanism:** Explicitly models the network to be equivariant to rotations, translations, and reflections ($E(n)$ symmetry). This ensures that the stress prediction respects the physical geometric laws of the 3D objects regardless of their orientation in space, without requiring data augmentation.
 
 ### 3. ClofNet (Coordinate-independent Local Frame Network)
-* [cite_start]**Type:** $SE(3)$-Invariant / Local Frame GNN[cite: 85].
-* **Mechanism:** Utilizes local coordinate frames constructed on the mesh surface to achieve coordinate independence. [cite_start]This approach is particularly effective at capturing complex local geometric details (anisotropy) in 3D meshes without relying on a global coordinate system[cite: 86, 88].
+* **Type:** $SE(3)$-Invariant / Local Frame GNN.
+* **Mechanism:** Utilizes local coordinate frames constructed on the mesh surface to achieve coordinate independence. This approach is particularly effective at capturing complex local geometric details (anisotropy) in 3D meshes without relying on a global coordinate system.
 
 ### 4. Graph Transformer
-* [cite_start]**Type:** Attention-based GNN[cite: 102].
-* **Mechanism:** Employs **Multi-Head Attention** mechanisms combined with explicit geometric edge features (relative positions and Euclidean distances). [cite_start]This allows the model to capture long-range dependencies and learn which nodes are most relevant to each other, irrespective of their graph distance[cite: 105, 110].
+* **Type:** Attention-based GNN.
+* **Mechanism:** Employs **Multi-Head Attention** mechanisms combined with explicit geometric edge features (relative positions and Euclidean distances). This allows the model to capture long-range dependencies and learn which nodes are most relevant to each other, irrespective of their graph distance.
 
 ---
 
 ## ⚠️ Hardware & Environment Requirements
 
-[cite_start]**This project is specifically optimized for Google Colab Pro**[cite: 29, 30].
+**This project is specifically optimized for Google Colab Pro**.
 
 Due to the complexity of the 3D meshes and the depth of the networks, the computational requirements are significant.
 
-* [cite_start]**Dataset Size:** The processed dataset is approximately **9 GB** (compressed) and contains roughly 48,000 graphs[cite: 22].
-* [cite_start]**Memory:** Loading the graph data and training deep GNNs requires **High-RAM** runtimes (>25 GB System RAM)[cite: 31].
-* [cite_start]**GPU:** A high-end GPU (A100 or V100) is recommended for reasonable training times[cite: 31].
+* **Dataset Size:** The processed dataset is approximately **9 GB** (compressed) and contains roughly 48,000 graphs.
+* **Memory:** Loading the graph data and training deep GNNs requires **High-RAM** runtimes (>25 GB System RAM).
+* **GPU:** A high-end GPU (A100 or V100) is recommended for reasonable training times.
 
-> [cite_start]**❌ Standard (Free) Google Colab:** The free tier will likely crash due to "Out of Memory" (OOM) errors during data loading or training.
+> **❌ Standard (Free) Google Colab:** The free tier will likely crash due to "Out of Memory" (OOM) errors during data loading or training.
 >
-> [cite_start]**❌ Local Execution:** Downloading the dataset and running this locally is discouraged unless you possess a workstation with significant VRAM (24GB+) and System RAM (32GB+).
+> **❌ Local Execution:** Downloading the dataset and running this locally is discouraged unless you possess a workstation with significant VRAM (24GB+) and System RAM (32GB+).
 
 ---
 
@@ -60,7 +58,6 @@ The project is organized by architecture. Each notebook is self-contained.
 │   └── 04_GraphTransformer.ipynb
 └── README.md
 ```
-
 
 ## ⚙️ Installation & Dependencies
 
@@ -80,7 +77,7 @@ Simply run the first cell of any notebook to set up the environment.
 
 ## 💾 Dataset Setup (Critical)
 
-[cite_start]This project utilizes the synthetic dataset provided by **Ezemba et al.** [cite: 21][cite_start], consisting of approximately **16,000 unique 3D geometries** (tetrahedral meshes)[cite: 22].
+This project utilizes the synthetic dataset provided by **Ezemba et al.**, consisting of approximately **16,000 unique 3D geometries** (tetrahedral meshes).
 
 ### 1. Download the Data
 The dataset is hosted on **Hugging Face**. You do not need the entire repository, only the pre-processed PyTorch files.
@@ -126,7 +123,7 @@ To match the paths defined in the notebooks, please follow these steps exactly:
 
 ## 📊 Results and Discussion
 
-We benchmarked the four architectures on a validation set. [cite_start]The results highlight the superiority of geometric-aware models (EGNN, ClofNet) over standard topological models (U-Net)[cite: 132, 133].
+We benchmarked the four architectures on a validation set. The results highlight the superiority of geometric-aware models (EGNN, ClofNet) over standard topological models (U-Net).
 
 ### Quantitative Metrics
 
@@ -137,30 +134,28 @@ We benchmarked the four architectures on a validation set. [cite_start]The resul
 | **R² (90th percentile)**| 0.74 | 0.79 | **0.81** | 0.80 |
 | **R² (10th percentile)**| -0.08 | **0.00** | -0.05 | -0.05 |
 
-[cite_start]*(Table Data Source: [cite: 128])*
-
-* [cite_start]**Best Performance:** **ClofNet** achieves the highest top-tier precision ($R^2_{90\%}=0.81$)[cite: 94].
-* [cite_start]**Robustness:** **EGNN** demonstrates the best stability on complex geometries (10th percentile), avoiding catastrophic failure ($R^2=0.00$) unlike the U-Net ($R^2=-0.08$)[cite: 76].
-* [cite_start]**Efficiency:** The **Graph Transformer** yields competitive results while offering superior computational efficiency[cite: 140].
+* **Best Performance:** **ClofNet** achieves the highest top-tier precision ($R^2_{90\\%}$).
+* **Robustness:** **EGNN** demonstrates the best stability on complex geometries (10th percentile), avoiding catastrophic failure ($R^2_{10\\%}=0.0$) unlike the U-Net ($R^2_{10\\%}=-0.08$).
+* **Efficiency:** The **Graph Transformer** yields competitive results while offering superior computational efficiency.
 
 ### Qualitative Analysis
 
 The project includes an evaluation pipeline using **Plotly** to visualize the stress fields directly on the 3D mesh.
 
-* [cite_start]**Over-smoothing:** All models exhibit a "regression to the mean" behavior, struggling to capture sharp stress singularities in the most complex cases[cite: 122].
-* **Visual Comparison:** Predictions are displayed side-by-side with Ground Truth (FEM). [cite_start]Visualization uses **independent color scaling** to emphasize stress distribution patterns (topology) over absolute magnitude errors[cite: 68, 69].
+* **Over-smoothing:** All models exhibit a "regression to the mean" behavior, struggling to capture sharp stress singularities in the most complex cases.
+* **Visual Comparison:** Predictions are displayed side-by-side with Ground Truth (FEM). Visualization uses **independent color scaling** to emphasize stress distribution patterns (topology) over absolute magnitude errors.
 
 ---
 
 ## 👤 Authors
 
-* [cite_start]**Alexandre Vallet** - EPFL [cite: 2]
-* [cite_start]**Gaspard Lafont** - EPFL [cite: 2]
-* [cite_start]**Tomas Jouven** - EPFL [cite: 2]
+* **Alexandre Vallet** - EPFL
+* **Gaspard Lafont** - EPFL
+* **Tomas Jouven** - EPFL
 
 ## 📚 References
 
-* [cite_start]**[1]** J. Ezemba, C. McComb, and C. Tucker, "Neural Network Surrogate Modeling for Stochastic Finite Element Method Using Three-Dimensional Graph Representations," ASME IDETC/CIE, 2023[cite: 167].
-* [cite_start]**[2]** H. Gao and S. Ji, "Graph U-Nets," ICML, 2019[cite: 169].
-* [cite_start]**[3]** V. G. Satorras et al., "E(n) Equivariant Graph Neural Networks," ICML, 2021[cite: 170].
-* [cite_start]**[4]** W. Du et al., "SE(3) Equivariant Graph Neural Networks with Complete Local Frames," ICML, 2022[cite: 171].
+* **[1]** J. Ezemba, C. McComb, and C. Tucker, "Neural Network Surrogate Modeling for Stochastic Finite Element Method Using Three-Dimensional Graph Representations," ASME IDETC/CIE, 2023.
+* **[2]** H. Gao and S. Ji, "Graph U-Nets," ICML, 2019.
+* **[3]** V. G. Satorras et al., "E(n) Equivariant Graph Neural Networks," ICML, 2021.
+* **[4]** W. Du et al., "SE(3) Equivariant Graph Neural Networks with Complete Local Frames," ICML, 2022.
